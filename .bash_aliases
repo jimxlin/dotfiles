@@ -149,3 +149,5 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
+
+alias mb="printf '%0.s>' {1..400}"
