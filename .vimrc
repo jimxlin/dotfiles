@@ -1,6 +1,10 @@
 augroup vimrc
-	autocmd!
+  autocmd!
 augroup END
+
+let mapleader      = ' '
+let maplocalleader = ' '
+
 " ============================================================================
 " VIM-PLUG BLOCK {{{
 " ============================================================================
@@ -8,10 +12,10 @@ augroup END
 silent! if plug#begin('~/.vim/plugged')
 
 " Colors
-Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
   let g:gruvbox_contrast_dark = 'soft'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'tomasr/molokai'
 
 " Browsing
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
@@ -193,7 +197,7 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 " FUNCTIONS & COMMANDS {{{
 " ============================================================================
 
-" :CopyRTF
+" <F8> | Color scheme selector
 function! s:colors(...)
   return filter(map(filter(split(globpath(&rtp, 'colors/*.vim'), "\n"),
         \                  'v:val !~ "^/usr/"'),
@@ -201,35 +205,6 @@ function! s:colors(...)
         \       '!a:0 || stridx(v:val, a:1) >= 0')
 endfunction
 
-function! s:copy_rtf(line1, line2, ...)
-  let [ft, cs, nu] = [&filetype, g:colors_name, &l:nu]
-  let lines = getline(1, '$')
-
-  tab new
-  setlocal buftype=nofile bufhidden=wipe nonumber
-  let &filetype = ft
-  call setline(1, lines)
-  doautocmd BufNewFile filetypedetect
-
-  execute 'colo' get(a:000, 0, 'seoul256-light')
-  hi Normal ctermbg=NONE guibg=NONE
-
-  let lines = getline(a:line1, a:line2)
-  let indent = repeat(' ', min(map(filter(copy(lines), '!empty(v:val)'), 'len(matchstr(v:val, "^ *"))')))
-  call setline(a:line1, map(lines, 'substitute(v:val, indent, "", "")'))
-
-  call tohtml#Convert2HTML(a:line1, a:line2)
-  g/^\(pre\|body\) {/s/background-color: #[0-9]*; //
-  silent %write !textutil -convert rtf -textsizemultiplier 1.3 -stdin -stdout | ruby -e 'puts STDIN.read.sub(/\\\n}$/m, "\n}")' | pbcopy
-
-  bd!
-  tabclose
-
-  let &l:nu = nu
-  execute 'colorscheme' cs
-endfunction
-
-" <F8> | Color scheme selector
 function! s:rotate_colors()
   if !exists('s:colors')
     let s:colors = s:colors()
