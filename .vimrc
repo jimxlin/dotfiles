@@ -1,7 +1,45 @@
-" Use the Molokai Dark theme
+augroup vimrc
+	autocmd!
+augroup END
+" ============================================================================
+" VIM-PLUG BLOCK {{{
+" ============================================================================
+
+silent! if plug#begin('~/.vim/plugged')
+
+" Colors
+Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+  let g:gruvbox_contrast_dark = 'soft'
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+" Browsing
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
+  autocmd! User indentLine doautocmd indentLine Syntax
+  let g:indentLine_color_term = 239
+  let g:indentLine_color_gui = '#616161'
+
+" Git
+Plug 'tpope/vim-fugitive'
+  nmap     <Leader>g :Gstatus<CR>gg<c-n>
+  nnoremap <Leader>d :Gdiff<CR>
+
+call plug#end()
+endif
+
+" }}}
+" ============================================================================
+" BASIC SETTINGS {{{
+" ============================================================================
+
+" Use dark colorschemes
 set background=dark
+" Enable syntax highlighting
+syntax on
+" Limit syntax highlighting on long lines
+set synmaxcol=512
+" Default colorscheme
 colorscheme molokai
-let g:molokai_origial=1
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
@@ -46,10 +84,6 @@ set exrc
 set secure
 " Enable line numbers
 set number
-" Enable syntax highlighting
-syntax on
-" Limit syntax highlighting on long lines
-set synmaxcol=512
 " Indentation
 set autoindent
 set smartindent
@@ -132,17 +166,6 @@ function! s:statusline_expr()
   return '[%n] %F %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-  let save_cursor = getpos(".")
-  let old_query = getreg('/')
-  :%s/\s\+$//e
-  call setpos('.', save_cursor)
-  call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-" Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
 " Automatic commands
 if has("autocmd")
   " Enable file type detection
@@ -152,3 +175,71 @@ if has("autocmd")
   " Treat .md files as Markdown
   autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+" }}}
+" ============================================================================
+" MAPPINGS {{{
+" ============================================================================j
+
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+" }}}
+" ============================================================================
+" FUNCTIONS & COMMANDS {{{
+" ============================================================================
+
+" :CopyRTF
+function! s:colors(...)
+  return filter(map(filter(split(globpath(&rtp, 'colors/*.vim'), "\n"),
+        \                  'v:val !~ "^/usr/"'),
+        \           'fnamemodify(v:val, ":t:r")'),
+        \       '!a:0 || stridx(v:val, a:1) >= 0')
+endfunction
+
+function! s:copy_rtf(line1, line2, ...)
+  let [ft, cs, nu] = [&filetype, g:colors_name, &l:nu]
+  let lines = getline(1, '$')
+
+  tab new
+  setlocal buftype=nofile bufhidden=wipe nonumber
+  let &filetype = ft
+  call setline(1, lines)
+  doautocmd BufNewFile filetypedetect
+
+  execute 'colo' get(a:000, 0, 'seoul256-light')
+  hi Normal ctermbg=NONE guibg=NONE
+
+  let lines = getline(a:line1, a:line2)
+  let indent = repeat(' ', min(map(filter(copy(lines), '!empty(v:val)'), 'len(matchstr(v:val, "^ *"))')))
+  call setline(a:line1, map(lines, 'substitute(v:val, indent, "", "")'))
+
+  call tohtml#Convert2HTML(a:line1, a:line2)
+  g/^\(pre\|body\) {/s/background-color: #[0-9]*; //
+  silent %write !textutil -convert rtf -textsizemultiplier 1.3 -stdin -stdout | ruby -e 'puts STDIN.read.sub(/\\\n}$/m, "\n}")' | pbcopy
+
+  bd!
+  tabclose
+
+  let &l:nu = nu
+  execute 'colorscheme' cs
+endfunction
+
+" <F8> | Color scheme selector
+function! s:rotate_colors()
+  if !exists('s:colors')
+    let s:colors = s:colors()
+  endif
+  let name = remove(s:colors, 0)
+  call add(s:colors, name)
+  execute 'colorscheme' name
+  redraw
+  echo name
+endfunction
+nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
+
+" }}}
