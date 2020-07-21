@@ -43,7 +43,7 @@ syntax on
 " Limit syntax highlighting on long lines
 set synmaxcol=512
 " Default colorscheme
-colorscheme molokai
+silent! colorscheme molokai
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
