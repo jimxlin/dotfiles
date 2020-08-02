@@ -2,6 +2,7 @@ augroup vimrc
   autocmd!
 augroup END
 
+nnoremap <SPACE> <Nop>
 let mapleader      = ' '
 let maplocalleader = ' '
 
@@ -77,8 +78,6 @@ set lazyredraw
 set gdefault
 " Use UTF-8 without BOM
 set encoding=utf-8 nobomb
-" Change mapleader
-let mapleader=","
 " Key combinations
 set timeoutlen=500
 set ttimeoutlen=10
@@ -203,6 +202,9 @@ if $TERM =~ 'screen'
   nnoremap <Leader><C-a> <C-a>
 endif
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+" <leader>n NERD Tree
+nnoremap <leader>n :NERDTreeToggle<cr>
 
 " }}}
 " ============================================================================
