@@ -40,6 +40,11 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
   nmap     <Leader>g :Gstatus<CR>gg<c-n>
   nnoremap <Leader>d :Gdiff<CR>
+Plug 'mhinz/vim-signify'
+
+" Languages
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 call plug#end()
 endif
@@ -49,6 +54,8 @@ endif
 " BASIC SETTINGS {{{
 " ============================================================================
 
+" Swap write interval, refresh some UI plugins
+set updatetime=600
 " Use dark colorschemes
 set background=dark
 " Enable syntax highlighting
