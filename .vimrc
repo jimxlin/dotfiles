@@ -203,6 +203,9 @@ endif
 " MAPPINGS {{{
 " ============================================================================j
 
+" Save
+nnoremap <leader>w :update<cr>
+
 " Disable CTRL-A on tmux or on screen
 if $TERM =~ 'screen'
   nnoremap <C-a> <nop>
