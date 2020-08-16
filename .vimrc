@@ -213,9 +213,6 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 " <leader>n | NERD Tree
 nnoremap <leader>n :NERDTreeToggle<cr>
 
-" <leader>b # <cr> | Buffer select
-nnoremap <leader>b :buffers<CR>:buffer<Space>
-
 " Buffers
 nnoremap ]b :bnext<cr>
 nnoremap [b :bprev<cr>
