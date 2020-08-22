@@ -216,6 +216,12 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 " <leader>n | NERD Tree
 nnoremap <leader>n :NERDTreeToggle<cr>
 
+" Quickfix
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
+nnoremap ]l :lnext<cr>zz
+nnoremap [l :lprev<cr>zz
+
 " Buffers
 nnoremap ]b :bnext<cr>
 nnoremap [b :bprev<cr>
