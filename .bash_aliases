@@ -13,6 +13,14 @@ alias cddl="cd ~/Downloads"
 alias cdpr="cd ~/Projects"
 alias g="git"
 
+# Git autocompletion with aliases
+if [ -f "/usr/share/bash-completion/completions/git" ]; then
+  source /usr/share/bash-completion/completions/git
+  __git_complete g _git
+else
+  echo "Error loading git completions"
+fi
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
   colorflag="--color"
