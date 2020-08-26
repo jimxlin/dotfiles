@@ -13,9 +13,9 @@ let maplocalleader = ' '
 silent! if plug#begin('~/.vim/plugged')
 
 " Colors
+Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
   let g:gruvbox_contrast_dark = 'soft'
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'arcticicestudio/nord-vim'
 Plug 'bluz71/vim-moonfly-colors'
 
@@ -280,3 +280,23 @@ function! s:rotate_colors()
 endfunction
 nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
 " }}
+
+" Replace netrw with fern
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+
+augroup my-fern-hijack
+  autocmd!
+  autocmd BufEnter * ++nested call s:hijack_directory()
+augroup END
+
+function! s:hijack_directory() abort
+  let path = expand('%:p')
+  if !isdirectory(path)
+    return
+  endif
+  bwipeout %
+  execute printf('Fern %s', fnameescape(path))
+endfunction
