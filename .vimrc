@@ -16,35 +16,68 @@ silent! if plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
   let g:gruvbox_contrast_dark = 'soft'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'tomasr/molokai'
+Plug 'arcticicestudio/nord-vim'
+Plug 'bluz71/vim-moonfly-colors'
+
+" Editing
+Plug 'tpope/vim-commentary'
+  map  gc  <Plug>Commentary
+  nmap gcc <Plug>CommentaryLine
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
 
 " Reading
+Plug 'wellle/targets.vim'
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
   autocmd! User indentLine doautocmd indentLine Syntax
   let g:indentLine_color_term = 239
   let g:indentLine_color_gui = '#616161'
 
 " Browsing
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-  augroup nerd_loader
-    autocmd!
-    autocmd VimEnter * silent! autocmd! FileExplorer
-    autocmd BufEnter,BufNew *
-          \  if isdirectory(expand('<amatch>'))
-          \|   call plug#load('nerdtree')
-          \|   execute 'autocmd! nerd_loader'
-          \| endif
-  augroup END
+Plug 'tpope/vim-unimpaired'
+Plug 'lambdalisue/fern.vim'
+  let g:fern#disable_viewer_hide_cursor = 1
+Plug 'lambdalisue/fern-git-status.vim'
+  let g:fern_git_status#disable_ignored    = 1
+  let g:fern_git_status#disable_untracked  = 1
+  let g:fern_git_status#disable_submodules = 1
 
 " Git
 Plug 'tpope/vim-fugitive'
-  nmap     <Leader>g :Gstatus<CR>gg<c-n>
-  nnoremap <Leader>d :Gdiff<CR>
+  nnoremap <silent> <Leader>G :Gstatus<CR>>
+  nnoremap <silent> <Leader>D :Gdiff<CR>
+  nnoremap <silent> <Leader>B :Gblame<CR>
+  nnoremap <silent> <Leader>L :Gllog<CR>
 Plug 'mhinz/vim-signify'
 
 " Languages
-Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'sheerun/vim-polyglot'
+Plug 'dense-analysis/ale'
+  let g:ale_fixers = {
+  \  'css':        ['prettier'],
+  \  'javascript': ['prettier-standard'],
+  \  'json':       ['prettier'],
+  \  'ruby':       ['standardrb'],
+  \  'python':     ['flake8'],
+  \  'scss':       ['prettier'],
+  \  'yml':        ['prettier']
+  \}
+  let g:ale_linters = {
+  \  'css':        ['csslint'],
+  \  'javascript': ['standard'],
+  \  'json':       ['jsonlint'],
+  \  'ruby':       ['standardrb'],
+  \  'python':     ['black', 'isort'],
+  \  'scss':       ['sasslint'],
+  \  'yaml':       ['yamllint']
+  \}
+  let g:ale_linters_explicit = 1
+  let g:ale_open_list        = 0
+  let g:ale_lint_on_enter            = 0
+  let g:ale_lint_on_filetype_changed = 0
+  let g:ale_lint_on_insert_leave     = 0
+  let g:ale_lint_on_save             = 1
+  let g:ale_lint_on_text_changed     = 'never'
 
 call plug#end()
 endif
@@ -54,6 +87,8 @@ endif
 " BASIC SETTINGS {{{
 " ============================================================================
 
+" True color support
+set termguicolors
 " Swap write interval, refresh some UI plugins
 set updatetime=600
 " Use dark colorschemes
@@ -63,7 +98,7 @@ syntax on
 " Limit syntax highlighting on long lines
 set synmaxcol=512
 " Default colorscheme
-silent! colorscheme molokai
+silent! colorscheme moonfly
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
@@ -213,26 +248,12 @@ if $TERM =~ 'screen'
 endif
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
-" <leader>n | NERD Tree
-nnoremap <leader>n :NERDTreeToggle<cr>
+" Fern Plugin
+noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
 
-" Quickfix
-nnoremap ]q :cnext<cr>zz
-nnoremap [q :cprev<cr>zz
-nnoremap ]l :lnext<cr>zz
-nnoremap [l :lprev<cr>zz
-
-" Buffers
-nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
-
-" Tabs
-nnoremap ]t :tabn<cr>
-nnoremap [t :tabp<cr>
-
-" <tab> / <s-tab> | Circular windows navigation
-nnoremap <tab>   <c-w>w
-nnoremap <S-tab> <c-w>W
+" ALE Plugin 
+nmap <Leader>l <Plug>(ale_lint)
+nmap <Leader>f <Plug>(ale_fix)
 
 " }}}
 " ============================================================================
@@ -258,15 +279,4 @@ function! s:rotate_colors()
   echo name
 endfunction
 nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
-
-" <leader>ss | Remove trailing whitespace
-function! StripWhitespace()
-  let save_cursor = getpos(".")
-  let old_query = getreg('/')
-  :%s/\s\+$//e
-  call setpos('.', save_cursor)
-  call setreg('/', old_query)
-endfunction
-nnoremap <leader>ss :call StripWhitespace()<cr>
-
-" }}}
+" }}
