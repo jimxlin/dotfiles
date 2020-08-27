@@ -284,12 +284,14 @@ augroup my-fern-hijack
 augroup END
 
 function! s:hijack_directory() abort
-  let path = expand('%:p')
-  if !isdirectory(path)
-    return
+  if exists('g:fern#disable_viewer_hide_cursor')
+    let path = expand('%:p')
+    if !isdirectory(path)
+      return
+    endif
+    bwipeout %
+    execute printf('Fern %s', fnameescape(path))
   endif
-  bwipeout %
-  execute printf('Fern %s', fnameescape(path))
 endfunction
 
 " }}
