@@ -18,6 +18,8 @@ Plug 'morhetz/gruvbox'
   let g:gruvbox_contrast_dark = 'soft'
 Plug 'arcticicestudio/nord-vim'
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'AlessandroYorba/Alduin'
+  let g:alduin_Shout_Become_Ethereal = 1
 
 " Editing
 Plug 'tpope/vim-commentary'
@@ -27,14 +29,13 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
 
 " Reading
+Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
-Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
-  autocmd! User indentLine doautocmd indentLine Syntax
-  let g:indentLine_color_term = 239
-  let g:indentLine_color_gui = '#616161'
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
+  let g:indentLine_color_term = 0
+  let g:indentLine_char = '▏'
 
 " Browsing
-Plug 'tpope/vim-unimpaired'
 Plug 'lambdalisue/fern.vim'
   let g:fern#disable_viewer_hide_cursor = 1
 Plug 'lambdalisue/fern-git-status.vim'
@@ -223,15 +224,6 @@ function! s:statusline_expr()
   return '[%n] %F %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
-" Automatic commands
-if has("autocmd")
-  " Enable file type detection
-  filetype on
-  " Treat .json files as .js
-  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-  " Treat .md files as Markdown
-  autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-endif
 
 " }}}
 " ============================================================================
@@ -279,7 +271,6 @@ function! s:rotate_colors()
   echo name
 endfunction
 nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
-" }}
 
 " Replace netrw with fern
 let g:loaded_netrw             = 1
@@ -300,3 +291,5 @@ function! s:hijack_directory() abort
   bwipeout %
   execute printf('Fern %s', fnameescape(path))
 endfunction
+
+" }}
