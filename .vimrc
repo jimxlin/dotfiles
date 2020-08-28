@@ -13,29 +13,40 @@ let maplocalleader = ' '
 silent! if plug#begin('~/.vim/plugged')
 
 " Colors
-Plug 'joshdick/onedark.vim'
+Plug 'AlessandroYorba/Alduin'
+  let g:alduin_Shout_Become_Ethereal = 1
+  let g:alduin_Shout_Fire_Breath = 1
+Plug 'tomasiser/vim-code-dark'
 Plug 'morhetz/gruvbox'
   let g:gruvbox_contrast_dark = 'soft'
 Plug 'arcticicestudio/nord-vim'
 Plug 'bluz71/vim-moonfly-colors'
-Plug 'AlessandroYorba/Alduin'
-  let g:alduin_Shout_Become_Ethereal = 1
 
 " Editing
 Plug 'tpope/vim-commentary'
-  map  gc  <Plug>Commentary
-  nmap gcc <Plug>CommentaryLine
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
+Plug 'wellle/targets.vim'
 
 " Reading
-Plug 'tpope/vim-unimpaired'
-Plug 'wellle/targets.vim'
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
   let g:indentLine_color_term = 0
   let g:indentLine_char = '▏'
 
 " Browsing
+Plug 'itchyny/lightline.vim'
+  let g:lightline = {
+  \   'colorscheme': 'moonfly',
+  \   'active': {
+  \     'left':[
+  \       [ 'mode', 'paste' ],
+  \       [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+  \     ]
+  \   },
+  \   'component_function': {
+  \     'gitbranch': 'fugitive#head',
+  \   }
+  \}
 Plug 'lambdalisue/fern.vim'
   let g:fern#disable_viewer_hide_cursor = 1
 Plug 'lambdalisue/fern-git-status.vim'
@@ -59,7 +70,7 @@ Plug 'dense-analysis/ale'
   \  'javascript': ['prettier-standard'],
   \  'json':       ['prettier'],
   \  'ruby':       ['standardrb'],
-  \  'python':     ['flake8'],
+  \  'python':     ['black', 'isort'],
   \  'scss':       ['prettier'],
   \  'yml':        ['prettier']
   \}
@@ -68,7 +79,7 @@ Plug 'dense-analysis/ale'
   \  'javascript': ['standard'],
   \  'json':       ['jsonlint'],
   \  'ruby':       ['standardrb'],
-  \  'python':     ['black', 'isort'],
+  \  'python':     ['flake8'],
   \  'scss':       ['sasslint'],
   \  'yaml':       ['yamllint']
   \}
@@ -212,7 +223,7 @@ endif
 silent! set cryptmethod=blowfish2
 " Ignore some chars when using gf
 set isfname-==
-" Custom statusline
+" Custom statusline, gets overwritten by plugin
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
@@ -246,6 +257,20 @@ noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
 " ALE Plugin 
 nmap <Leader>l <Plug>(ale_lint)
 nmap <Leader>f <Plug>(ale_fix)
+
+" Nav Quickfix
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
+nnoremap ]l :lnext<cr>zz
+nnoremap [l :lprev<cr>zz
+
+" Nav Buffers
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
+" Nav Tabs
+nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
 
 " }}}
 " ============================================================================
