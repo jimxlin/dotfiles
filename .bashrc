@@ -6,3 +6,6 @@ esac
 
 [ -n "$PS1" ] && source ~/.bash_profile;
 
+# fnm
+export PATH=/home/jxl/.fnm:$PATH
+eval "`fnm env`"
