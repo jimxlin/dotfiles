@@ -65,12 +65,11 @@ Plug 'mhinz/vim-signify'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
-  let g:polyglot_disabled = ['jinja']
 Plug 'glench/vim-jinja2-syntax'
 Plug 'dense-analysis/ale'
   let g:ale_fixers = {
   \  'css':        ['prettier'],
-  \  'javascript': ['prettier-standard'],
+  \  'javascript': ['standard'],
   \  'json':       ['prettier'],
   \  'ruby':       ['standardrb'],
   \  'python':     ['black'],
@@ -252,7 +251,7 @@ let &statusline = s:statusline_expr()
 " }}}
 " ============================================================================
 " MAPPINGS {{{
-" ============================================================================j
+" ============================================================================
 
 " Save
 nnoremap <leader>w :update<cr>
