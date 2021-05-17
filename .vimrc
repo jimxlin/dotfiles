@@ -64,44 +64,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 
 " Languages
-Plug 'sheerun/vim-polyglot'
-Plug 'glench/vim-jinja2-syntax'
-Plug 'dense-analysis/ale'
-  let g:ale_fixers = {
-  \  'css':        ['prettier'],
-  \  'javascript': ['standard'],
-  \  'json':       ['prettier'],
-  \  'ruby':       ['standardrb'],
-  \  'python':     ['black'],
-  \  'scss':       ['prettier'],
-  \  'yml':        ['prettier']
-  \}
-  let g:ale_linters = {
-  \  'css':        ['csslint'],
-  \  'javascript': ['standard'],
-  \  'json':       ['jsonlint'],
-  \  'ruby':       ['standardrb'],
-  \  'python':     ['flake8'],
-  \  'scss':       ['sasslint'],
-  \  'yaml':       ['yamllint']
-  \}
-  let g:ale_linters_explicit = 1
-  let g:ale_open_list        = 0
-  let g:ale_lint_on_enter            = 0
-  let g:ale_lint_on_filetype_changed = 0
-  let g:ale_lint_on_insert_leave     = 0
-  let g:ale_lint_on_save             = 1
-  let g:ale_lint_on_text_changed     = 'never'
-  function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-  endfunction
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 endif
@@ -267,8 +230,8 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
 
 " ALE Plugin 
-nmap <Leader>l <Plug>(ale_lint)
-nmap <Leader>f <Plug>(ale_fix)
+" nmap <Leader>l <Plug>(ale_lint)
+" nmap <Leader>f <Plug>(ale_fix)
 
 " Nav Quickfix
 nnoremap ]q :cnext<cr>zz
