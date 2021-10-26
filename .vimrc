@@ -101,7 +101,7 @@ silent! colorscheme moonfly
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 " Enhance command-line completion
 set wildmenu
 set wildmode=full
