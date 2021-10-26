@@ -37,6 +37,7 @@ Plug 'bluz71/vim-moonfly-colors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
 " Reading
