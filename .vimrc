@@ -24,28 +24,18 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 silent! if plug#begin('~/.vim/plugged')
 
 " Colors
-Plug 'AlessandroYorba/Alduin'
-  let g:alduin_Shout_Become_Ethereal = 1
-  let g:alduin_Shout_Fire_Breath = 1
-Plug 'tomasiser/vim-code-dark'
-Plug 'morhetz/gruvbox'
-  let g:gruvbox_contrast_dark = 'soft'
-Plug 'arcticicestudio/nord-vim'
+Plug 'gruvbox-community/gruvbox'
+  let g:gruvbox_contrast_dark = 'medium'
 Plug 'bluz71/vim-moonfly-colors'
 
-" Editing
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
-Plug 'wellle/targets.vim'
-
-" Reading
+" Read
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
+  let g:indentLine_enabled = 1
   let g:indentLine_color_term = 0
   let g:indentLine_char = '▏'
 
-" Browsing
+Plug 'romainl/vim-cool'
+
 Plug 'itchyny/lightline.vim'
   let g:lightline = {
   \   'colorscheme': 'moonfly',
@@ -60,12 +50,13 @@ Plug 'itchyny/lightline.vim'
   \     'linterstatus': 'LinterStatus'
   \   }
   \}
-Plug 'lambdalisue/fern.vim'
-  let g:fern#disable_viewer_hide_cursor = 1
-Plug 'lambdalisue/fern-git-status.vim'
-  let g:fern_git_status#disable_ignored    = 1
-  let g:fern_git_status#disable_untracked  = 1
-  let g:fern_git_status#disable_submodules = 1
+
+" Write
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -75,7 +66,7 @@ Plug 'tpope/vim-fugitive'
   nnoremap <silent> <Leader>L :Gllog<CR>
 Plug 'mhinz/vim-signify'
 
-" Languages
+" Language support 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
@@ -197,7 +188,7 @@ endif
 set scrolloff=3
 " Hide buffers instead of closing them
 set hidden
-" No folding when switching buggers
+" No folding when switching buffers
 set foldlevelstart=99
 " Periodically check if buffer was changed outside of Vim
 au CursorHold,CursorHoldI * checktime
@@ -236,14 +227,9 @@ if $TERM =~ 'screen'
   nnoremap <C-a> <nop>
   nnoremap <Leader><C-a> <C-a>
 endif
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " Fern Plugin
 noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
-
-" ALE Plugin 
-" nmap <Leader>l <Plug>(ale_lint)
-" nmap <Leader>f <Plug>(ale_fix)
 
 " Nav Quickfix
 nnoremap ]q :cnext<cr>zz
@@ -283,27 +269,5 @@ function! s:rotate_colors()
   echo name
 endfunction
 nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
-
-" Replace netrw with fern
-let g:loaded_netrw             = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
-
-augroup my-fern-hijack
-  autocmd!
-  autocmd BufEnter * ++nested call s:hijack_directory()
-augroup END
-
-function! s:hijack_directory() abort
-  if exists('g:fern#disable_viewer_hide_cursor')
-    let path = expand('%:p')
-    if !isdirectory(path)
-      return
-    endif
-    bwipeout %
-    execute printf('Fern %s', fnameescape(path))
-  endif
-endfunction
 
 " }}
