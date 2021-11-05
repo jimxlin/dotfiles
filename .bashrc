@@ -1,3 +1,15 @@
+# Programs to install for new systems:
+#   - neovim
+#   - tmux plugin manager
+#   - fzf
+#   - ripgrep
+#   - fasd
+#   - todo.txt-cli
+#   - notify-send
+#   - thefuck
+#   - lesspipe
+
+
 # If not an interactive shell, do nothing
 case $- in
 *i*) ;;
