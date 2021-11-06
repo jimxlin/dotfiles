@@ -1,14 +1,13 @@
 # Programs to install for new systems:
 #   - neovim
 #   - tmux plugin manager
-#   - fzf
-#   - ripgrep
-#   - fasd
+#   - dandavison/delta
+#   - junegunn/fzf
+#   - burntsushi/ripgrep
+#   - clvv/fasd
 #   - todo.txt-cli
 #   - notify-send
-#   - thefuck
-#   - lesspipe
-
+#   - nvbn/thefuck
 
 # If not an interactive shell, do nothing
 case $- in
@@ -51,9 +50,6 @@ shopt -s histappend
 
 # Attempt to fix last failed command
 [[ "$(command -v thefuck)" ]] && eval $(thefuck --alias oops)
-
-# Make less more friendly for non-text input files
-[[ "$(command -v lesspipe)" ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Offers quick access to files and directories
 [[ "$(command -v fasd)" ]] && eval "$(fasd --init auto)"
