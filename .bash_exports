@@ -1,6 +1,9 @@
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH"
 
+# Add cargo binaries to the `$PATH`
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Make neovim the default editor
 export EDITOR='nvim'
 

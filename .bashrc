@@ -4,7 +4,7 @@
 #   - dandavison/delta
 #   - junegunn/fzf
 #   - burntsushi/ripgrep
-#   - clvv/fasd
+#   - ajeetdsouza/zoxide
 #   - todo.txt-cli
 #   - notify-send
 #   - nvbn/thefuck
@@ -52,7 +52,7 @@ shopt -s histappend
 [[ "$(command -v thefuck)" ]] && eval $(thefuck --alias oops)
 
 # Offers quick access to files and directories
-[[ "$(command -v fasd)" ]] && eval "$(fasd --init auto)"
+[[ "$(command -v zoxide)" ]] && eval "$(zoxide init bash)"
 
 # Fast node manager
 [[ "$(command -v fnm)" ]] && eval "$(fnm env)"
