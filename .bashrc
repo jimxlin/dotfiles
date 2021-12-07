@@ -1,11 +1,9 @@
-# Programs to install for new systems:
+# Recommended programs
 #   - neovim
 #   - tmux plugin manager
-#   - dandavison/delta
 #   - junegunn/fzf
 #   - burntsushi/ripgrep
 #   - ajeetdsouza/zoxide
-#   - todo.txt-cli
 #   - notify-send
 #   - nvbn/thefuck
 
