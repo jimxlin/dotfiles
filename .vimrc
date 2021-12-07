@@ -33,6 +33,7 @@ Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
   let g:indentLine_enabled = 1
   let g:indentLine_color_term = 0
   let g:indentLine_char = '▏'
+  nnoremap <leader>i :IndentLinesToggle<cr>
 
 Plug 'romainl/vim-cool'
 
@@ -42,12 +43,11 @@ Plug 'itchyny/lightline.vim'
   \   'active': {
   \     'left':[
   \       [ 'mode', 'paste' ],
-  \       [ 'gitbranch', 'linterstatus', 'readonly', 'filename', 'modified' ]
+  \       [ 'gitbranch', 'readonly', 'filename', 'modified' ]
   \     ]
   \   },
   \   'component_function': {
-  \     'gitbranch': 'fugitive#head',
-  \     'linterstatus': 'LinterStatus'
+  \     'gitbranch': 'fugitive#head'
   \   }
   \}
 
@@ -65,9 +65,6 @@ Plug 'tpope/vim-fugitive'
   nnoremap <silent> <Leader>B :Gblame<CR>
   nnoremap <silent> <Leader>L :Gllog<CR>
 Plug 'mhinz/vim-signify'
-
-" Language support 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 endif
@@ -191,10 +188,10 @@ set hidden
 " No folding when switching buffers
 set foldlevelstart=99
 " Periodically check if buffer was changed outside of Vim
-au CursorHold,CursorHoldI * checktime
-" Use ag when grepping
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+au CursorHold,CursorHoldI * silent! checktime
+" Use ripgrep when grepping
+if executable('rg')
+  set grepprg=rg\ --no-heading\ --vimgrep\ --smart-case
   set grepformat^=%f:%l:%c:%m,%f:%l:%m   " file:line:column:message
 endif
 " Set encryption method
@@ -228,8 +225,8 @@ if $TERM =~ 'screen'
   nnoremap <Leader><C-a> <C-a>
 endif
 
-" Fern Plugin
-noremap <silent> <Leader>d :Fern . -drawer -width=35 -toggle<CR><C-w>=
+" grep
+nnoremap <Leader>g :silent lgrep<Space>
 
 " Nav Quickfix
 nnoremap ]q :cnext<cr>zz
