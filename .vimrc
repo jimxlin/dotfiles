@@ -51,6 +51,9 @@ Plug 'itchyny/lightline.vim'
   \   }
   \}
 
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
 " Write
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
