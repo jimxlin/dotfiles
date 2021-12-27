@@ -53,6 +53,7 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+  nnoremap <leader>m :Goyo<cr> \| :Limelight!!<cr>
 
 " Write
 Plug 'tpope/vim-commentary'
