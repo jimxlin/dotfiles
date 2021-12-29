@@ -4,6 +4,9 @@ export PATH="$HOME/bin:$PATH"
 # Add cargo binaries to the `$PATH`
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Add fnm binary to the `$PATH` 
+export PATH="$HOME/.fnm:$PATH"
+
 # Make neovim the default editor
 export EDITOR='nvim'
 
