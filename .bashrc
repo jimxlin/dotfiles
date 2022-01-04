@@ -52,9 +52,12 @@ shopt -s histappend
 # Offers quick access to files and directories
 [[ "$(command -v zoxide)" ]] && eval "$(zoxide init bash)"
 
-# Fast node manager
-[[ "$(command -v fnm)" ]] && eval "$(fnm env)"
-
 # Use bash-completion, if available
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-    . /usr/share/bash-completion/bash_completion
+  . /usr/share/bash-completion/bash_completion
+
+# asdf
+[[ -f $HOME/.asdf/asdf.sh ]] && \
+  . $HOME/.asdf/asdf.sh
+[[ -f $HOME/.asdf/completions/asdf.bash ]] && \
+  . $HOME/.asdf/completions/asdf.bash
