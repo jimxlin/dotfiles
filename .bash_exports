@@ -1,8 +1,8 @@
-# Add `~/bin` to the `$PATH`
+# Add `bin`s to the `$PATH`
 export PATH="$HOME/bin:$PATH"
-
-# Add cargo binaries to the `$PATH`
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 # Make neovim the default editor
 export EDITOR='nvim'
@@ -28,3 +28,6 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X'
+
+# Work with X410
+export DISPLAY=${HOSTNAME}.local:0.0
