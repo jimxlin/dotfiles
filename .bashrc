@@ -5,7 +5,6 @@
 #   - burntsushi/ripgrep
 #   - ajeetdsouza/zoxide
 #   - notify-send
-#   - nvbn/thefuck
 
 # If not an interactive shell, do nothing
 case $- in
@@ -46,18 +45,18 @@ shopt -s histappend
 # Utilities
 #==============================================================================
 
-# Attempt to fix last failed command
-[[ "$(command -v thefuck)" ]] && eval $(thefuck --alias oops)
-
 # Offers quick access to files and directories
-[[ "$(command -v zoxide)" ]] && eval "$(zoxide init bash)"
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 
 # Use bash-completion, if available
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-  . /usr/share/bash-completion/bash_completion
+if [ -f "/etc/bash_completion" ]; then
+  . "/etc/bash_completion"
+elif [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+  . "$(brew --prefix)/etc/bash_completion"
+fi
 
 # asdf
-[[ -f $HOME/.asdf/asdf.sh ]] && \
-  . $HOME/.asdf/asdf.sh
-[[ -f $HOME/.asdf/completions/asdf.bash ]] && \
-  . $HOME/.asdf/completions/asdf.bash
+[ -f "$HOME/.asdf/asdf.sh" ] && \
+  . "$HOME/.asdf/asdf.sh"
+[ -f "$HOME/.asdf/completions/asdf.bash" ] && \
+  . "$HOME/.asdf/completions/asdf.bash"
