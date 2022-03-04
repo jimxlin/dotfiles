@@ -64,7 +64,7 @@ Plug 'wellle/targets.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
-  nnoremap <silent> <Leader>G :Gstatus<CR>>
+  nnoremap <silent> <Leader>G :Git<CR>>
   nnoremap <silent> <Leader>D :Gdiff<CR>
   nnoremap <silent> <Leader>B :Gblame<CR>
   nnoremap <silent> <Leader>L :Gllog<CR>
