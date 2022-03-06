@@ -9,12 +9,6 @@ alias -- -="cd -"
 alias cddl="cd ~/Downloads"
 alias cdpr="cd ~/Projects"
 
-# git
-alias g="git"
-if type _git &> /dev/null; then
-  complete -o default -o nospace -F _git g;
-fi;
-
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
 
