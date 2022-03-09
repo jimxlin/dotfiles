@@ -41,5 +41,8 @@ alias path='echo -e ${PATH//:/\\n}'
 # Use NeoVim
 [ -x "$(command -v nvim)" ] && alias vim='nvim'
 
+# Use Emacs in the terminal
+[ -x "$(command -v emacs)" ] && alias emacs='emacs -nw'
+
 # Retry last command with sudo
 alias plz='sudo $(fc -ln -1)'
