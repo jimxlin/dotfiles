@@ -41,6 +41,9 @@ done
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend
 
+# Prevent closing terminal with C-d
+set -o ignoreeof
+
 #==============================================================================
 # Utilities
 #==============================================================================
