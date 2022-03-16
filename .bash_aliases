@@ -12,6 +12,13 @@ alias cdpr="cd ~/Projects"
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
 
+# git
+alias g='git'
+alias gs='git status'
+alias gd='git diff'
+alias gb='git branch'
+alias gco='git checkout'
+
 # Detect which `ls` flavor is in use
 if ls --color -d . &>/dev/null; then
   alias ls="ls --color=auto"
