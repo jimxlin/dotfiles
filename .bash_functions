@@ -246,7 +246,7 @@ function _completion_for_aliases() {
 		fi
 	done < <(alias -p)
 	# shellcheck source=/dev/null
-	source "$tmp_file" && command rm -f "$tmp_file"
+	. "$tmp_file" && command rm -f "$tmp_file"
 }
 
 _completion_for_aliases

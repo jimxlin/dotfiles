@@ -18,7 +18,7 @@ stty -ixon
 # Load the shell dotfiles
 # * ~/.path can be used to extend `$PATH`.
 for file in ~/.{path,bash_prompt,bash_exports,bash_aliases,bash_functions}; do
-  [ -r "$file" ] && [ -f "$file" ] && source "$file"
+  [ -r "$file" ] && [ -f "$file" ] && . "$file"
 done
 unset file
 
