@@ -5,7 +5,7 @@ case $- in
 esac
 
 # zsh completions with homebrew
-if type brew >/dev/null 2>&1
+if type brew &>/dev/null
 then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
   autoload -Uz compinit
