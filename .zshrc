@@ -18,6 +18,9 @@ stty -ixon
 # Make neovim the default editor
 [ -x "$(command -v nvim)" ] && export EDITOR='nvim'
 
+# Force emacs mode in shell
+bindkey -e
+
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
