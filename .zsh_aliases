@@ -18,6 +18,7 @@ alias gs='git status'
 alias gd='git diff'
 alias gb='git branch'
 alias gco='git checkout'
+alias gfs='git fetch --all; git switch'
 
 # Detect which `ls` flavor is in use
 if ls --color -d . &>/dev/null; then
