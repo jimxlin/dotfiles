@@ -18,11 +18,8 @@ function usage() {
 #==============================================================================
 
 function mkcd() {
-  # mkcd foo
-  # mkcd /tmp/img/photos/large
-  # mkcd foo foo1 foo2 fooN
-  # mkcd /tmp/img/photos/large /tmp/img/photos/self /tmp/img/photos/Beijing
-  mkdir -p -- "$@" && cd -- "${!#}" || return
+  dir="$*";
+  mkdir -p "$dir" && cd "$dir";
 }
 
 #==============================================================================
