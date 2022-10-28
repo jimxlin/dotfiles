@@ -21,6 +21,10 @@ stty -ixon
 # Force emacs mode in shell
 bindkey -e
 
+# ctrl + left/right arrow
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
