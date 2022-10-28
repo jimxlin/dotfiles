@@ -1,3 +1,6 @@
+# Reload shell config
+alias reload="source ~/.zshrc"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
@@ -5,9 +8,10 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias -- -="cd -"
 
-# Shortcuts
+# Directory shortcuts
 alias cddl="cd ~/Downloads"
 alias cdpr="cd ~/Projects"
+alias cddr="cd ~/Library/CloudStorage/Dropbox"
 
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
@@ -47,3 +51,9 @@ alias path='echo -e ${PATH//:/\\n}'
 
 # Retry last command with sudo
 alias plz='sudo $(fc -ln -1)'
+
+# Lazydocker
+alias lad="lazydocker"
+
+# Lazygit
+alias lag="lazygit"
